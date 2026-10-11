@@ -1,15 +1,15 @@
-from pydantic import BaseModel, EmailStr, AnyUrl
-from typing import List, Dict, Optional
+from pydantic import BaseModel, EmailStr, AnyUrl, Field
+from typing import List, Dict, Optional, Annotated
 
 class Patient(BaseModel):
 
-    name: str
+    name: str = Field(max_length=50)
     email: EmailStr
     linkedin_url: AnyUrl
-    age: int
-    weight: float
+    age: int = Field(gt=0,lt=120)
+    weight: float = Field(gt=0)
     married: bool
-    allergies: Optional[List[str]] = None #every item will be string
+    allergies: Optional[List[str]] = Field(max_length=5) #every item will be string
     contact_details: Dict[str,str] #key and values both will be str
 
 
