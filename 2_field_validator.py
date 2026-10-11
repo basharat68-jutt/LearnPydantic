@@ -25,7 +25,11 @@ class Patient(BaseModel):
 
             return value
 
+    @field_validator('name')
+    @classmethod
 
+    def transformer_name(cls,value):
+        return value.upper()
 
 
 def update_patient(patient: Patient):
