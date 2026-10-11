@@ -25,11 +25,22 @@ class Patient(BaseModel):
 
             return value
 
-    @field_validator('name')
+    @field_validator('name', mode='after')
     @classmethod
 
     def transformer_name(cls,value):
         return value.upper()
+
+
+#(for 'before') Here age is string before type validation and therefore it will give us error
+#if we use "mode='after'" then we will not receive any error 
+    @field_validator('age',mode='after')
+    @classmethod
+    def validate_age(cls,value):
+        if 0<value<100:
+            return value
+        else:
+            raise ValueError('Age should be in between 0 and 100')
 
 
 def update_patient(patient: Patient):
@@ -42,7 +53,7 @@ def update_patient(patient: Patient):
 
 patient_info = {'name':'Ali','email':'abc@hdfc.com','age':'30','weight':75.2,'married':True,'allergies':['polen','dust'],'contact_details':{'phone':'234556'}}
 
-patient1 = Patient(**patient_info)
+patient1 = Patient(**patient_info) #making object for pydantic model
 
 update_patient(patient1)
 
