@@ -21,7 +21,7 @@ patient_dict = {'name':'Jutt','gender':'male','age':34,'address':addreses1}
 
 patient1 = Patient(**patient_dict)
 
-temp = patient1.model_dump(exclude=['name']) #existing pydantic model ko dictionary mein convert kr dy ga
+temp = patient1.model_dump(exclude={'name'}) #existing pydantic model ko dictionary mein convert kr dy ga
 
 print(temp)
 print(type(temp))
